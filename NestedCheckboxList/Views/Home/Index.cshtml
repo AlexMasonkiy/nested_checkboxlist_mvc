@@ -1,0 +1,53 @@
+﻿@model List<WebApplication3.Models.Group>
+
+@{
+    ViewBag.Title = "Index";
+}
+<form method="post">
+    <ul style="padding-left: 40px;">
+        @for (int k = 0; k < Model.Count(); k++)
+        {
+            <li>
+                @Model[k].Name
+                @Html.HiddenFor(_ => Model[k].Id)
+                @Html.HiddenFor(_ => Model[k].Name)                
+                @Html.CheckBoxFor(_ => Model[k].Checked)
+                @if (Model[k].Options != null && Model[k].Options.Count > 0)
+                {
+                    <ul style="padding-left: 40px;">                       
+                        @for (int i =0; i< Model[k].Options.Count;i++)
+                        {
+                            <li> 
+                                @Model[k].Options[i].Name
+                                @Html.HiddenFor(_ => Model[k].Options[i].Id)
+                                @Html.HiddenFor(_ => Model[k].Options[i].Name)                          
+                                @Html.CheckBoxFor(_ => Model[k].Options[i].Checked)
+                                @if (Model[k].Options[i].Values != null && Model[k].Options[i].Values.Count > 0)
+                                {
+                                    <ul style="padding-left: 40px;">                                        
+                                        @for (int j = 0; j < Model[k].Options[i].Values.Count; j++)
+                                        {
+                                            <li>
+                                                @Model[k].Options[i].Values[j].Name
+                                                @Html.HiddenFor(_=> Model[k].Options[i].Values[j].Id)
+                                                @Html.HiddenFor(_ => Model[k].Options[i].Values[j].Name)
+                                                @Html.CheckBoxFor(_ => Model[k].Options[i].Values[j].Checked)
+                                            </li>
+                                            j++;
+                                        }
+
+                                    </ul>
+                                            }
+
+                            </li>                            
+                        }
+                    </ul>
+                }
+            </li>
+
+        }
+    </ul>
+    <input type="submit" />
+</form>
+
+
